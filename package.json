@@ -1,0 +1,15 @@
+{
+  "name": "anima-engine",
+  "productName": "AnimaEngine",
+  "version": "1.0.0",
+  "description": "Desktop overlay that plays GIF / APNG animations on top of your screen.",
+  "main": "src/main/main.js",
+  "scripts": {
+    "start": "node scripts/start.js",
+    "generate-gifs": "node scripts/generate-gifs.js"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "33.2.1"
+  }
+}

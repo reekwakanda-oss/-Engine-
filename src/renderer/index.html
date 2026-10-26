@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' file: data:; style-src 'self'" />
+    <title>AnimaEngine</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand"><span class="logo"></span>AnimaEngine</div>
+      <nav class="tabs" role="tablist">
+        <button class="tab active" data-tab="library">Library</button>
+        <button class="tab" data-tab="active">On screen <span class="count" id="active-count">0</span></button>
+        <button class="tab" data-tab="settings">Settings</button>
+      </nav>
+    </header>
+
+    <!-- Library -->
+    <main class="view" id="view-library">
+      <section class="library">
+        <div class="toolbar">
+          <button class="btn primary" id="add-btn">＋ Add from PC</button>
+          <input id="search" type="search" placeholder="Search your library…" />
+          <div class="chips" id="filters">
+            <button class="chip active" data-filter="all">All</button>
+            <button class="chip" data-filter="builtin">Built-in</button>
+            <button class="chip" data-filter="user">My files</button>
+          </div>
+        </div>
+        <div class="grid" id="grid"></div>
+        <p class="hint">Tip: drop .gif / .apng / .png / .webp files anywhere on this window to add them.</p>
+      </section>
+
+      <aside class="panel" id="panel">
+        <div class="preview"><img id="preview-img" alt="" /></div>
+        <div class="panel-title">
+          <input id="item-name" class="name-input" />
+          <span class="badge" id="item-badge"></span>
+        </div>
+
+        <div class="field">
+          <label>Size <output id="scale-out"></output></label>
+          <input type="range" id="scale" min="0.25" max="4" step="0.25" />
+        </div>
+        <div class="field">
+          <label>Speed <output id="speed-out"></output></label>
+          <input type="range" id="speed" min="0.25" max="3" step="0.25" />
+        </div>
+        <div class="field">
+          <label>Opacity <output id="opacity-out"></output></label>
+          <input type="range" id="opacity" min="0.1" max="1" step="0.05" />
+        </div>
+        <div class="toggles">
+          <label class="check"><input type="checkbox" id="flip" /> Mirror</label>
+          <label class="check"><input type="checkbox" id="crisp" /> Crisp pixels</label>
+        </div>
+
+        <div class="field">
+          <label>White background</label>
+          <div class="segmented" id="bg-mode">
+            <button data-mode="auto" title="Remove it only if the animation sits on a white backdrop">Auto</button>
+            <button data-mode="remove">Remove</button>
+            <button data-mode="keep">Keep</button>
+          </div>
+        </div>
+        <div class="field" id="bg-tolerance-field">
+          <label>Removal strength <output id="bgTolerance-out"></output></label>
+          <input type="range" id="bgTolerance" min="5" max="120" step="5" />
+        </div>
+
+        <div class="field">
+          <label>Start position</label>
+          <div class="anchor-row">
+            <div class="anchors" id="anchors"></div>
+            <button class="btn small" id="anchor-last" data-anchor="last" title="Where you last dragged this animation">Last spot</button>
+          </div>
+        </div>
+
+        <button class="btn primary big" id="launch-btn">▶ Launch animation</button>
+        <button class="btn danger" id="delete-btn">Delete from library</button>
+      </aside>
+    </main>
+
+    <!-- Active overlays -->
+    <main class="view hidden" id="view-active">
+      <div class="active-head">
+        <div>
+          <h2>On screen</h2>
+          <p class="muted">Drag animations directly on your desktop, or set an exact position here. Right-click an animation for quick options.</p>
+        </div>
+        <button class="btn danger" id="close-all">Close all</button>
+      </div>
+      <div id="active-list" class="active-list"></div>
+      <p class="empty muted hidden" id="active-empty">Nothing on screen yet. Pick something in the Library and hit <b>Launch</b>.</p>
+    </main>
+
+    <!-- Settings -->
+    <main class="view hidden" id="view-settings">
+      <h2>Settings</h2>
+      <div class="settings">
+        <label class="setting">
+          <div>
+            <b>Start with my computer</b>
+            <p class="muted">Open AnimaEngine automatically when you log in (works in the packaged app).</p>
+          </div>
+          <input type="checkbox" class="switch" id="set-login" />
+        </label>
+        <label class="setting">
+          <div>
+            <b>Restore animations on startup</b>
+            <p class="muted">Re-open whatever was on screen last time, in the same spots.</p>
+          </div>
+          <input type="checkbox" class="switch" id="set-restore" />
+        </label>
+        <div class="setting">
+          <div>
+            <b>Unlock shortcut</b>
+            <p class="muted">Locked animations ignore the mouse. Press <kbd id="shortcut"></kbd> to unlock them all.</p>
+          </div>
+        </div>
+        <div class="setting">
+          <div>
+            <b>Imported files</b>
+            <p class="muted">Files you add are copied into the app's library folder.</p>
+          </div>
+          <button class="btn" id="open-folder">Open folder</button>
+        </div>
+      </div>
+      <p class="muted version" id="version"></p>
+    </main>
+
+    <div class="drop-overlay hidden" id="drop">Drop to add to your library</div>
+    <script src="app.js"></script>
+  </body>
+</html>
